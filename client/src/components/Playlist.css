@@ -1,0 +1,22 @@
+.Playlist {
+	text-align: unset;
+	width: 400px;
+	height: 120px;
+	margin: 0 auto;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	background-color: #3c3c3c;
+}
+
+.PlaylistImage {
+	padding-top: 10px;
+	padding-left: 5px;
+	width: 30%;
+	float: left;
+}
+
+.PlaylistName {
+	margin-left: 20px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}

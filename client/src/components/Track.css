@@ -1,0 +1,25 @@
+.Track {
+	width: 350px;
+	height: 90px;
+	margin: 0 auto;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	background-color: #3c3c3c;
+	border-bottom: 1px solid #000;
+}
+
+.TrackImage {
+	padding-top: 10px;
+	width: 25%;
+	float: left;
+}
+
+.TrackName {
+	margin-left: 10px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.ArtistName {
+	margin-top: -18px;
+}
