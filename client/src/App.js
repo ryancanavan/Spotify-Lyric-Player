@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Header from './components/Header';
-import Body from './components/Body';
+import Header from './Header';
+import SpotifyBody from './SpotifyComponents/Body';
+import GeniusBody from './GeniusComponents/Body';
 import './App.css';
 
 class App extends Component {
@@ -8,7 +9,8 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Header />
-				<Body />
+				<div className="LeftFrame"><SpotifyBody /></div>
+				<div className="RightFrame"><GeniusBody /></div>
 			</div>
 		);
   }

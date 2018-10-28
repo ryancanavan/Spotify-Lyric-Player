@@ -1,20 +1,18 @@
 .Header {
 	background-color: #181818;
-	padding-bottom: 15px;
 	text-align: left;
-	padding-left: 200px;
+	padding-left: 100px;
 	margin-bottom: 15px;
 }
 
 .Title {
 	display: inline;
-	font-size: 50px;
+	font-size: 30px;
 	padding-left: 15px;
 }
 
 .Logo {
-	padding-left: 50px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	vertical-align: -40px;
+	vertical-align: -25px;
 }

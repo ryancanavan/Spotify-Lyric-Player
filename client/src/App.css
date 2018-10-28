@@ -55,6 +55,19 @@ hr {
 	border-color: #191414;
 }
 
+.LeftFrame {
+	width: 49.9%;
+	float: left;
+	border-right: 1px solid #000;
+	margin-bottom: 15px;
+}
+
+.RightFrame {
+  width: 50%;
+  float: right;  
+	margin-bottom: 15px;
+}
+
 /* Styling for Toggle Switch */
 
 .switch input {display:none;}

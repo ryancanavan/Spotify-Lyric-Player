@@ -20,3 +20,12 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.PlaylistButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

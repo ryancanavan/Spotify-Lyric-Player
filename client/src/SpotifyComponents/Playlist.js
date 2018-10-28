@@ -5,7 +5,7 @@ import spotifyLogo from '../res/Spotify_Icon_Green.png';
 function Playlist(props) {
 	return (
 		<div>
-			<a onClick={props.onClick}>
+			<button className="PlaylistButton" onClick={props.onClick}>
 				<div className="Playlist">
 					<div className="PlaylistImage">
 						{ props.data.images[0] ?
@@ -17,7 +17,7 @@ function Playlist(props) {
 						<h2>{props.data.name}</h2>
 					</div>
 				</div>
-			</a>
+			</button>
 		</div>
 	)
 }

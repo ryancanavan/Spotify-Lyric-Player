@@ -1,32 +1,48 @@
 import React, { Component } from 'react';
 import Playlist from './Playlist';
 import Tracklist from './Tracklist';
-import './Frame.css';
+import './Home.css';
 
-class Frame extends Component{
-  constructor(props) {
-		super(props);
-		this.state = {
-			username: null,
-			playlists: props.playlists,
+class Home extends Component {
+  constructor(){
+    super();
+    this.state = {
+      playlists: [],
+      tracks: [],
+      username: null,
 			playlistSelect: false,
-			playlistTracks: [],
 			playlistName: null,
 			foreignPlaylist: false,
-		};
-		
-		this.handleChange = this.handleChange.bind(this);
+    };
+
+    this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-  componentWillReceiveProps(nextProps) {
-		if(!this.state.foreignPlaylist) {
-			this.setState({
-				playlists: nextProps.playlists
-			})
-		}
+
+  componentWillMount(){
+    this.getPlaylists(0);
   }
-  
+
+  getPlaylists(offset){
+    let params = this.props.params;
+    fetch('https://api.spotify.com/v1/me/playlists?offset=' + offset, {
+      headers: {
+        'Authorization': 'Bearer ' + params.access_token,
+        'Content-Type': 'application/json'
+      }
+    }).then((res) => {
+      res.json().then((data) => {
+        let newPlaylists = this.state.playlists.concat(data.items);
+        this.setState({
+          playlists: newPlaylists
+        });
+        if(data.total > (data.offset + data.limit)) {
+          this.getPlaylists((data.offset + data.limit));
+        }
+      });
+    });
+  }
+
   playlistSelect(tracksUrl, playlistName, offset) {
 		let params = this.props.params;
 		fetch(tracksUrl + '?offset=' + offset, {
@@ -36,21 +52,19 @@ class Frame extends Component{
 			}
 		}).then((res) => {
 			res.json().then((data) => {
-				let newTracks = this.state.playlistTracks.concat(data.items);
+				let newTracks = this.state.tracks.concat(data.items);
 				this.setState({
 					playlistSelect: true,
-					playlistTracks: newTracks,
+					tracks: newTracks,
 					playlistName: playlistName
 				});
 				if(data.total > (data.offset + data.limit)) {
 					this.playlistSelect(tracksUrl, playlistName, (data.offset + data.limit));
-				} else {
-					this.props.playlistSelect(this.state.playlistTracks);
 				}
 			});
 		});
   }
-  
+
   getForeignPlaylist(offset) {
 		let params = this.props.params;
 		fetch('https://api.spotify.com/v1/users/' + this.state.username + '/playlists?offset=' + offset, {
@@ -71,24 +85,24 @@ class Frame extends Component{
 			});
 		});
   }
-  
+
   resetPlaylistSelect() {
 		this.setState({
 			playlistSelect: false,
-			playlistTracks: [],
+			tracks: [],
 			playlistName: null,
 		});
-		this.props.playlistReset();
 	}
 
 	resetUserPlaylists() {
 		this.setState({
-			playlists: this.props.playlists,
+			playlists: [],
 			foreignPlaylist: false
-		});
-	}
-
-	disableNewline(event) {
+    });
+    this.getPlaylists(0);
+  }
+  
+  disableNewline(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
 		}
@@ -109,12 +123,12 @@ class Frame extends Component{
 		});
 		this.getForeignPlaylist(0);
   }
-  
+
   render() {
 		return (
-			<div className="Frame">
+			<div className="Home">
         { this.state.playlistSelect ? (
-          <Tracklist data={this.state.playlistTracks} playlistName={this.state.playlistName} onClick={() => this.resetPlaylistSelect()} />
+          <Tracklist data={this.state.tracks} playlistName={this.state.playlistName} onClick={() => this.resetPlaylistSelect()} />
         ) : (
           <div>
             { this.state.foreignPlaylist ? (
@@ -138,4 +152,4 @@ class Frame extends Component{
 	}
 }
 
-export default Frame;
+export default Home;
