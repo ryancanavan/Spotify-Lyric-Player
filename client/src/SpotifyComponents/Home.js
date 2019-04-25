@@ -27,7 +27,7 @@ class Home extends Component {
     let params = this.props.params;
     fetch('https://api.spotify.com/v1/me/playlists?offset=' + offset, {
       headers: {
-        'Authorization': 'Bearer ' + params.access_token,
+        'Authorization': 'Bearer ' + params.spotify_access_token,
         'Content-Type': 'application/json'
       }
     }).then((res) => {
@@ -47,7 +47,7 @@ class Home extends Component {
 		let params = this.props.params;
 		fetch(tracksUrl + '?offset=' + offset, {
 			headers: {
-				'Authorization': 'Bearer ' + params.access_token,
+				'Authorization': 'Bearer ' + params.spotify_access_token,
 				'Content-Type': 'application/json'
 			}
 		}).then((res) => {
@@ -69,7 +69,7 @@ class Home extends Component {
 		let params = this.props.params;
 		fetch('https://api.spotify.com/v1/users/' + this.state.username + '/playlists?offset=' + offset, {
 			headers: {
-				'Authorization': 'Bearer ' + params.access_token,
+				'Authorization': 'Bearer ' + params.spotify_access_token,
 				'Content-Type': 'application/json'
 			}
 		}).then((res) => {
@@ -84,7 +84,7 @@ class Home extends Component {
 				}
 			});
 		});
-  }
+	}
 
   resetPlaylistSelect() {
 		this.setState({
@@ -128,7 +128,7 @@ class Home extends Component {
 		return (
 			<div className="Home">
         { this.state.playlistSelect ? (
-          <Tracklist data={this.state.tracks} playlistName={this.state.playlistName} onClick={() => this.resetPlaylistSelect()} />
+          <Tracklist data={this.state.tracks} playlistName={this.state.playlistName} onClick={() => this.resetPlaylistSelect()} trackSelect={(track, playlist) => this.props.trackSelect(track, playlist)} />
         ) : (
           <div>
             { this.state.foreignPlaylist ? (

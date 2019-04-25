@@ -9,7 +9,7 @@ function Track(props) {
 	);
 	artists = artists.substring(0, artists.length - 2);
 	return (
-		<div className="Track">
+		<div className="Track" onClick={props.onClick}>
 			<div className="TrackImage">
 				{ props.data.track.album.images[0] ?
 					<img src={props.data.track.album.images[0].url} alt="Track Icon" height="70px" width="70px" /> :
